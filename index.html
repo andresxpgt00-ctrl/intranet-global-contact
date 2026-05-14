@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Global Contact Intranet</title>
+<style>
+body{
+font-family:Arial,sans-serif;
+margin:0;
+background:#f4f7fb;
+color:#222;
+}
+header{
+background:#0b57d0;
+color:white;
+padding:20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+nav{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+padding:15px;
+background:white;
+border-bottom:1px solid #ddd;
+}
+nav button{
+padding:10px 15px;
+border:none;
+background:#0b57d0;
+color:white;
+border-radius:8px;
+cursor:pointer;
+}
+.container{
+padding:20px;
+}
+.card{
+background:white;
+padding:20px;
+margin-bottom:20px;
+border-radius:12px;
+box-shadow:0 2px 10px rgba(0,0,0,0.08);
+}
+.hidden{
+display:none;
+}
+textarea,input{
+width:100%;
+padding:10px;
+margin-top:10px;
+border:1px solid #ccc;
+border-radius:8px;
+}
+.save-btn{
+margin-top:10px;
+background:#16a34a;
+}
+.section-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1>Global Contact Intranet</h1>
+<div>
+<button onclick="showView('user')">Vista Usuario</button>
+<button onclick="showView('admin')">Vista Admin</button>
+</div>
+</header>
+
+<nav>
+<button>Inicio</button>
+<button>Compañía</button>
+<button>Herramientas</button>
+<button>Capacitación</button>
+<button>Bienestar</button>
+<button>Recursos</button>
+<button>Postventa</button>
+</nav>
+
+<div class="container">
+
+<div id="userView">
+<div class="section-grid">
+
+<div class="card">
+<h2>Comunicados</h2>
+<p id="announcementText">Bienvenido a la intranet corporativa.</p>
+</div>
+
+<div class="card">
+<h2>Herramientas internas</h2>
+<ul>
+<li>CRM</li>
+<li>Panel de ventas</li>
+<li>Capacitaciones</li>
+<li>Recursos humanos</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>Capacitación</h2>
+<p>Accede a materiales, scripts y recursos internos.</p>
+</div>
+
+<div class="card">
+<h2>Bienestar</h2>
+<p>Pausas activas, tips y beneficios para empleados.</p>
+</div>
+
+</div>
+</div>
+
+<div id="adminView" class="hidden">
+<div class="card">
+<h2>Panel Administrador</h2>
+<p>Edita el comunicado principal:</p>
+<textarea id="announcementInput" rows="5"></textarea>
+<button class="save-btn" onclick="saveAnnouncement()">Guardar cambios</button>
+</div>
+</div>
+
+</div>
+
+<script>
+function showView(view){
+document.getElementById('userView').classList.add('hidden');
+document.getElementById('adminView').classList.add('hidden');
+
+if(view==='user'){
+document.getElementById('userView').classList.remove('hidden');
+}else{
+document.getElementById('adminView').classList.remove('hidden');
+}
+}
+
+function saveAnnouncement(){
+const text = document.getElementById('announcementInput').value;
+localStorage.setItem('announcement', text);
+document.getElementById('announcementText').innerText = text;
+alert('Contenido actualizado');
+}
+
+window.onload = () => {
+const saved = localStorage.getItem('announcement');
+if(saved){
+document.getElementById('announcementText').innerText = saved;
+document.getElementById('announcementInput').value = saved;
+}
+}
+</script>
+
+</body>
+</html>
